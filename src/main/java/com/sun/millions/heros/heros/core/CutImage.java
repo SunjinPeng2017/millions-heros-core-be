@@ -31,9 +31,10 @@ public class CutImage {
     }
 
     public static void main(String[] args) {
-        BufferedImage bufferedImage = cropImage("D:\\image\\IMG_0364.PNG", 40, 150, 670, 690);
+        BufferedImage bufferedImage = cropImage("D:\\Projects\\millionHeros\\screenshots\\IMG_0369.PNG", 40, 250, 670, 570);
         try {
-            ImageIO.write(bufferedImage, "PNG", new File("D:\\image\\IMG_bbbb.PNG"));
+            long millTimes = System.currentTimeMillis();
+            ImageIO.write(bufferedImage, "PNG", new File("D:\\Projects\\millionHeros\\cutPictures\\IMG_" + millTimes + ".PNG"));
         } catch (IOException e) {
             e.printStackTrace();
         }
