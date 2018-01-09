@@ -35,6 +35,7 @@ public class OCRImage {
         File imageFile = new File("D:\\Projects\\millionHeros\\cutPictures\\IMG_1515510305331.PNG");
         Tesseract instance = new Tesseract();
         try {
+            // 设置语言为 简体中文
             instance.setLanguage("chi_sim");
             String result = instance.doOCR(imageFile);
             String[] stringArray = result.split("\\n");
