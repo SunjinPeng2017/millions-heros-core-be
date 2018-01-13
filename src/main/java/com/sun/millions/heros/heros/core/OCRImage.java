@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -37,26 +38,34 @@ public class OCRImage {
         try {
             // 设置语言为 简体中文
             instance.setLanguage("chi_sim");
-            String result = instance.doOCR(imageFile);
-            String[] stringArray = result.split("\\n");
+            String ocrText = instance.doOCR(imageFile);
+            String[] tmpArray = ocrText.split("\\n");
+            List<String> textList = new LinkedList<>();
+            for (String text : tmpArray) {
+                if (!StringUtils.isEmpty(text)) {
+                    textList.add(text);
+                }
+            }
             Question question = new Question();
             List<String> answers = new ArrayList<>();
-            for (int i = 0; i < stringArray.length; i++) {
-                if (i == 0) {
-                    // 带题号的 title
-                    String holeTitle = !StringUtils.isEmpty(stringArray[i]) ? stringArray[i] : "";
-                    if (!StringUtils.isEmpty(holeTitle)) {
-                        // 去掉题号  1. 2008年奥运会开幕式主会场是? --> 2008年奥运会开幕式主会场是?
-                        String realTile = holeTitle.contains(".") ? holeTitle.split("[1-9]\\d*\\.")[1].trim() : holeTitle;
-                        question.setTitle(realTile);
-                    } else {
-                        LOG.error("识别 title 出错 ,title 为空!");
-                    }
+            StringBuilder holeTitle = new StringBuilder();
+            for (int i = 0; i < textList.size(); i++) {
+                String text = textList.get(i);
+                if (i < textList.size() - 3) {
+                    // 带题号的 title , title 可能有多行
+                    holeTitle.append(text.trim());
                 } else {
-                    if (!StringUtils.isEmpty(stringArray[i])) {
-                        answers.add(stringArray[i]);
-                    }
+                    answers.add(text.trim());
                 }
+            }
+            if (!StringUtils.isEmpty(holeTitle)) {
+                // 去掉题号  1. 2008年奥运会开幕式主会场是? --> 2008年奥运会开幕式主会场是?
+                String realTile = holeTitle.toString().contains(".") ?
+                        holeTitle.toString().split("[1-9]\\d*\\.")[1].trim() : holeTitle.toString();
+                question.setTitle(realTile);
+            } else {
+                LOG.error("识别 title 出错 ,title 为空!");
+                return;
             }
             question.setAnswers(answers);
             LOG.info("本题题目为: " + question.getTitle());
