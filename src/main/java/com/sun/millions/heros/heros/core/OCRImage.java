@@ -32,6 +32,13 @@ public class OCRImage {
     private static final Logger LOG = Logger.getLogger(OCRImage.class);
 
     /**
+     * The constant TEXT_SIZE.
+     *
+     * @since millions-heros-core-be 1.0.0
+     */
+    private static final int TEXT_SIZE = 4;
+
+    /**
      * Ocr image question.
      *
      * @param cutPicture the cut picture
@@ -56,7 +63,7 @@ public class OCRImage {
             List<String> answers = new ArrayList<>();
             StringBuilder holeTitle = new StringBuilder();
             int textSize = textList.size();
-            if (textSize < 4) {
+            if (textSize < TEXT_SIZE) {
                 LOG.error("OCR识别出错! 数组长度不应该小于 4");
                 return null;
             }
