@@ -115,6 +115,6 @@ public class SearchAnswer {
             }
         });
         String answer = entryList.get(0).getKey();
-        LOG.info("----------->>>>>>>>>>> 本题建议答案为: " + answer);
+        LOG.info("------------------>>>>>>>>>>>>>>>>>>>>>>> 本题建议答案为: " + answer);
     }
 }

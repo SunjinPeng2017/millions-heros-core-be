@@ -59,7 +59,7 @@ public class CutImage {
             String cutPicturePath = questionFilePath + "\\IMG_" + millTimes + ".PNG";
             File questionFile = new File(cutPicturePath);
             ImageIO.write(subImage, "PNG", questionFile);
-            LOG.info("图片裁剪完成! filePath = " + cutPicturePath);
+            LOG.info("图片裁剪完成!");
             return questionFile;
         } catch (IOException e) {
             e.printStackTrace();

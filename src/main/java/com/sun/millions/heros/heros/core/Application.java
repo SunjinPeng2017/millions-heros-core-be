@@ -96,10 +96,10 @@ public class Application {
         File monitoringFile = cutImage.createFile(monitoringFilePath);
         File[] screenshots = monitoringFile.listFiles();
         if (screenshots == null || screenshots.length == 0) {
-            LOG.info("该文件下不存在截图文件: filePath = " + monitoringFilePath);
+            LOG.info("该文件下不存在截图文件");
         } else if (screenshots.length == 1) {
             File screenshot = screenshots[0];
-            LOG.info("已扫描到截图文件，开始分析，filePath = " + screenshot.getAbsolutePath());
+            LOG.info(">>>>>>>>> 已扫描到截图文件，开始分析");
             // 裁剪图片
             File cropImage = cutImage.cropImage(screenshot, pictureX, pictureY, pictureWidth, pictureHeight);
             // 图片识别
@@ -113,7 +113,7 @@ public class Application {
                 LOG.info("程序共耗时: " + (System.currentTimeMillis() - startTime) + "ms");
             }
         } else {
-            LOG.error("请保证该文件下只有一张截图: filePath = " + monitoringFilePath);
+            LOG.error("请保证该文件下只有一张截图");
         }
     }
 
