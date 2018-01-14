@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * <b><code>OCRImage</code></b>
+ * <b><code>ocrImage</code></b>
  * <p>
  * class_comment
  * </p>
@@ -31,14 +31,20 @@ public class OCRImage {
      */
     private static final Logger LOG = Logger.getLogger(OCRImage.class);
 
-    public static void main(String[] args) {
+    /**
+     * Ocr image question.
+     *
+     * @param cutPicture the cut picture
+     * @return the question
+     * @since millions-heros-core-be 1.0.0
+     */
+    public static Question ocrImage(File cutPicture) {
         long startTime = System.currentTimeMillis();
-        File imageFile = new File("D:\\Projects\\millionHeros\\cutPictures\\IMG_1515510305331.PNG");
         Tesseract instance = new Tesseract();
         try {
             // 设置语言为 简体中文
             instance.setLanguage("chi_sim");
-            String ocrText = instance.doOCR(imageFile);
+            String ocrText = instance.doOCR(cutPicture);
             String[] tmpArray = ocrText.split("\\n");
             List<String> textList = new LinkedList<>();
             for (String text : tmpArray) {
@@ -49,6 +55,11 @@ public class OCRImage {
             Question question = new Question();
             List<String> answers = new ArrayList<>();
             StringBuilder holeTitle = new StringBuilder();
+            int textSize = textList.size();
+            if (textSize < 4) {
+                LOG.error("OCR识别出错! 数组长度不应该小于 4");
+                return null;
+            }
             for (int i = 0; i < textList.size(); i++) {
                 String text = textList.get(i);
                 if (i < textList.size() - 3) {
@@ -65,14 +76,17 @@ public class OCRImage {
                 question.setTitle(realTile);
             } else {
                 LOG.error("识别 title 出错 ,title 为空!");
-                return;
+                return null;
             }
             question.setAnswers(answers);
+            LOG.info("OCR识别成功!");
             LOG.info("本题题目为: " + question.getTitle());
             LOG.info("本题答案为: " + question.getAnswers());
             LOG.info("OCR共耗时: " + (System.currentTimeMillis() - startTime) + "ms");
+            return question;
         } catch (TesseractException e) {
             LOG.error("OCR识别出错! " + e.getMessage());
+            return null;
         }
     }
 }

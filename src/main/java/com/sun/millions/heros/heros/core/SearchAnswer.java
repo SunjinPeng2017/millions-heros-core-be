@@ -33,20 +33,12 @@ public class SearchAnswer {
     private static final Logger LOG = Logger.getLogger(SearchAnswer.class);
 
     /**
-     * The entry point of application.
+     * Gets answer.
      *
-     * @param args the input arguments
+     * @param question the question
      * @since millions-heros-core-be 1.0.0
      */
-    public static void main(String[] args) {
-        Question question = new Question();
-        question.setTitle("2008年奥运会开幕式主会场是?");
-        List<String> answers = new ArrayList<>();
-        answers.add("水立方");
-        answers.add("鸟巢");
-        answers.add("五棵松");
-        question.setAnswers(answers);
-
+    public static void getAnswer(Question question) {
         try {
             String title = URLEncoder.encode(question.getTitle(), "UTF-8");
             // 调用百度 "简单搜索" APP接口，搜索结果更准确
@@ -123,6 +115,6 @@ public class SearchAnswer {
             }
         });
         String answer = entryList.get(0).getKey();
-        LOG.info("本题建议答案为: " + answer);
+        LOG.info("----------->>>>>>>>>>> 本题建议答案为: " + answer);
     }
 }

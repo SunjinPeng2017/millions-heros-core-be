@@ -1,5 +1,9 @@
 package com.sun.millions.heros.heros.core;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,26 +21,68 @@ import java.io.IOException;
  * @version 1.0.0
  * @since millions-heros-core-be 1.0.0
  */
+@Component
 public class CutImage {
 
-    private static BufferedImage cropImage(String filePath, int x, int y, int w, int h) {
+    /**
+     * The Log.
+     *
+     * @since millions-heros-core-be 1.0.0
+     */
+    private static final Logger LOG = Logger.getLogger(CutImage.class);
+
+    /**
+     * The Question file path.
+     *
+     * @since millions-heros-core-be 1.0.0
+     */
+    @Value("${file.question.path}")
+    private String questionFilePath;
+
+    /**
+     * Crop image buffered image.
+     *
+     * @param screenshotFile the file path
+     * @param x              the x
+     * @param y              the y
+     * @param w              the w
+     * @param h              the h
+     * @return the buffered image
+     * @since millions-heros-core-be 1.0.0
+     */
+    public File cropImage(File screenshotFile, int x, int y, int w, int h) {
         try {
-            File file = new File(filePath);
-            BufferedImage originalImage = ImageIO.read(file);
-            return originalImage.getSubimage(x, y, w, h);
+            BufferedImage originalImage = ImageIO.read(screenshotFile);
+            BufferedImage subImage = originalImage.getSubimage(x, y, w, h);
+            long millTimes = System.currentTimeMillis();
+            createFile(questionFilePath);
+            String cutPicturePath = questionFilePath + "\\IMG_" + millTimes + ".PNG";
+            File questionFile = new File(cutPicturePath);
+            ImageIO.write(subImage, "PNG", questionFile);
+            LOG.info("图片裁剪完成! filePath = " + cutPicturePath);
+            return questionFile;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static void main(String[] args) {
-        BufferedImage bufferedImage = cropImage("D:\\Projects\\millionHeros\\screenshots\\IMG_0369.PNG", 40, 250, 670, 570);
-        try {
-            long millTimes = System.currentTimeMillis();
-            ImageIO.write(bufferedImage, "PNG", new File("D:\\Projects\\millionHeros\\cutPictures\\IMG_" + millTimes + ".PNG"));
-        } catch (IOException e) {
-            e.printStackTrace();
+    /**
+     * Create file file.
+     *
+     * @param filePath the file path
+     * @return the file
+     * @since millions-heros-core-be 1.0.0
+     */
+    public File createFile(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            if (file.mkdir()) {
+                LOG.info("创建文件成功: filePath = " + filePath);
+            } else {
+                LOG.info("创建文件失败: filePath = " + filePath);
+            }
         }
+        return file;
     }
 }
