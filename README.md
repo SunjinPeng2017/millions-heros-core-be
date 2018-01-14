@@ -17,8 +17,8 @@
 
 ### 不足及优化  
 * 需要手工截图，有点耽误时间
-* 只能百度搜索第一页相关结果，而没有去遍历相关链接，答案可能不准确
-* OCR有时识别较慢，需3S
+* 只能百度搜索第一页相关结果，而没有去爬虫遍历相关链接，答案可能不准确
+* OCR有时识别较慢，需要3s
 * 匹配算法还有待优化，可考虑用多线程去匹配结果(目前这部分需要时间较少)
 * 需要安装较多插件才能运行该项目，不易上手
 
@@ -26,7 +26,7 @@
 * 该项目IDE为IDEA，eclipse未测试
 * 安装截图工具`PP助手`用于截取Android、IOS图片
 * 安装tesseract用于识别图片文字
-    * 下载该[压缩包](https://pan.baidu.com/s/1smAQneP)
+    * 下载该 [压缩包](https://pan.baidu.com/s/1smAQneP)
     * 在path中新增环境变量，例如:`D:\Softwares\tesseract\tesseract`
     * 新建`TESSDATA_PREFIX`环境变量，例如:`D:\Softwares\tesseract\tessdata`
 * 配置`application.properties`中相关参数
