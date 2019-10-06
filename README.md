@@ -1,9 +1,9 @@
 ## millions-heros-core-be(百万英雄、冲顶大会,答题辅助器)
 ### 效果展示
-![baiwan](http://ozfuaes8n.bkt.clouddn.com/IMG_0393_1.png) ![baiwan_jietu](http://ozfuaes8n.bkt.clouddn.com/IMG_1515936066642_1.png) ![baiwan_yunxing](http://ozfuaes8n.bkt.clouddn.com/wukong_1.png)</br>
-![chongding](http://ozfuaes8n.bkt.clouddn.com/IMG_0386_2.png) 
-![chongding_jietu](http://ozfuaes8n.bkt.clouddn.com/IMG_1515936234597_2.png) 
-![chongding_yunxing](http://ozfuaes8n.bkt.clouddn.com/kongchengji_2.png)</br>
+![baiwan](https://images-1258052515.cos.ap-beijing.myqcloud.com/IMG_0393_1.png) ![baiwan_jietu](https://images-1258052515.cos.ap-beijing.myqcloud.com/IMG_1515936066642_1.png) ![baiwan_yunxing](https://images-1258052515.cos.ap-beijing.myqcloud.com/wukong_1.png)</br>
+![chongding](https://images-1258052515.cos.ap-beijing.myqcloud.com/IMG_0386_2.png) 
+![chongding_jietu](https://images-1258052515.cos.ap-beijing.myqcloud.com/IMG_1515936234597_2.png) 
+![chongding_yunxing](https://images-1258052515.cos.ap-beijing.myqcloud.com/kongchengji_2.png)</br>
 
 ### 原理解析
 * 原理上Android、IOS;所有相关应用都支持，因为只需要截取问题和答案即可
